@@ -1,0 +1,47 @@
+	Map1	Map2	Map3	Map4
+AMP	1	2	3	
+ADP	2	3		
+ATP	3			
+Acetate	4			
+Alanine	5			
+Ascorbat	6			
+Aspartate	7			
+Betaine	8			
+Cholate	9			
+Creatine	10			
+Ethanol	11			
+Formate	12			
+Fumarate	13			
+Glucose	14			
+Glucose_1_phosphate	15			
+Glucose_6_phosphate	16			
+Glutamate	17			
+Glutamine	18			
+Glutathione	19			
+Glycine	20	21	22	
+Histidine	21	22		
+Hypoxanthine	22			
+IMP	23			
+Inosine	24			
+Isoleucine	25			
+Lactate	26			
+Leucine	27	28	29	30
+Lysine	28	29		
+Malate	29			
+Maltose	30			
+Methanol	31			
+Methionine	32			
+NAD_	33	34	35	36
+NADP_	34			
+NADH	35	36		
+NADPH	36			
+Niacinamide	37	38		
+Phenylalanine	38			
+Succinate	39			
+Taurine	40			
+Tyrosine	41			
+UDP_glucose	42			
+UDP_glucuronate	43			
+Uracil	44			
+Uridine	45			
+Valine	46			

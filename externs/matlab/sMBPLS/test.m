@@ -1,0 +1,1 @@
+sMBbpls_run('test_data.mat','result')
