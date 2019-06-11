@@ -28,10 +28,15 @@ classdef DiffProcessTests < matlab.unittest.TestCase
             
             %test DiffTable
             diffTable = result.get('DiffTable');
+            diffTable.summary('deep', true)
+            
             testCase.verifyClass( diffTable, 'biotracs.core.mvc.model.ResourceSet' );
             
             idx = diffTable.getElementIndexesByNames({'Group:A_Group:B','Group:B_Group:A'});
-            diffMatrix = diffTable.getAt(idx(1));            
+            diffMatrix = diffTable.getAt(idx(1));    
+            
+            diffMatrix.export('../testdata/diff/diff_matrix.csv');
+            
             testCase.verifyClass( diffMatrix, 'biotracs.data.model.DataMatrix' );
             name = diffTable.elementNames{idx(1)};
             testCase.verifyTrue( strcmp(name, 'Group:A_Group:B') || strcmp(name, 'Group:B_Group:A') );
@@ -46,6 +51,8 @@ classdef DiffProcessTests < matlab.unittest.TestCase
             statTable = result.get('StatTable');
             idx = statTable.getElementIndexesByNames('Group:A');
             statMatrix = statTable.getAt(idx(1));
+            
+            statMatrix.export('../testdata/diff/stats_matrix.csv');
             
             expectedData = biotracs.data.model.DataMatrix.import('../testdata/diff/stats_matrix.csv');
             testCase.verifyEqual( statMatrix.data, expectedData.data, 'AbsTol', 1e-3 );

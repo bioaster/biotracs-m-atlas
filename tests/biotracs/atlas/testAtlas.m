@@ -26,11 +26,11 @@ function testAtlas( cleanAll )
     import matlab.unittest.TestSuite;
     %Tests = TestSuite.fromFolder('./', 'IncludingSubfolders', true);
     
-    Tests = TestSuite.fromFile('./helper/HelperTests.m');
+    %Tests = TestSuite.fromFile('./helper/HelperTests.m');
     
     %Tests = TestSuite.fromFile('./model/AggregLearnerTests.m');
     %Tests = TestSuite.fromFile('./model/CovaLearnerTests.m');
-    %Tests = TestSuite.fromFile('./model/DiffProcessTests.m');
+    Tests = TestSuite.fromFile('./model/DiffProcessTests.m');
     %Tests = TestSuite.fromFile('./model/HCALearnerTests.m');
     %Tests = TestSuite.fromFile('./model/KmeansLearnerTests.m');
     %Tests = TestSuite.fromFile('./model/LarsenTests.m');
@@ -44,7 +44,7 @@ function testAtlas( cleanAll )
     %Tests = TestSuite.fromFile('./model/PoolPredictorTests.m');
     %Tests = TestSuite.fromFile('./model/SldaTests.m');
     
-    Tests = TestSuite.fromFile('./model/VennDiagramTests.m');
+    %Tests = TestSuite.fromFile('./model/VennDiagramTests.m');
     
     %Tests = TestSuite.fromFile('./model/GenericMLWorkflowTests.m');
     
