@@ -126,8 +126,7 @@ classdef DiffProcess < biotracs.core.mvc.model.Process
                             if sum(hG1)==0 && sum(hG2)==0 
                                 [pvalues,zscores] = mattest(groupData1', groupData2');
                                 foldchanges = mean(groupData1) ./ mean(groupData2);
-                                pvalues
-                                pause
+                                
                                 if any(foldchanges <= 0) || any(isnan(foldchanges)) || any(isinf(foldchanges))
                                     warning('Some fold changes are negative or infinite numbers. You probably need to scale your data to have non-zero positive values or set parameter NegativeValuesImputation to true for impute negative values')
                                 end
@@ -142,11 +141,17 @@ classdef DiffProcess < biotracs.core.mvc.model.Process
                                     dataSet.getColumnNames() ...
                                     );
                             else
-                                pvalues = []
+                            
+                            end
+                        else
+                                pvalues = [];
+                                zscores = [];
                                 for k=1:ncol
-                                [pvalues,~, zscores] = ranksum(groupData1(1:nrow,k), groupData2(1:nrow,k));
-                                
+                                    [pval,~, z] = ranksum(groupData1(1:nrow,k), groupData2(1:nrow,k));
+                                    pvalues=[pvalues; pval];
+                                    zscores= [zscores;z.ranksum];
                                 end
+                                
                                 foldchanges = mean(groupData1) ./ mean(groupData2);
                                 
                                 if any(foldchanges <= 0) || any(isnan(foldchanges)) || any(isinf(foldchanges))
@@ -156,13 +161,12 @@ classdef DiffProcess < biotracs.core.mvc.model.Process
                                 %adjust p-value
                                 q = this.config.getParamValue('PValueThreshold');
                                 [~, ~, ~, adjPValue] = fdrbh.fdrbh(pvalues,q,'dep');
-                                
+                              
                                 diffMatrix = biotracs.data.model.DataMatrix(...
                                     [pvalues, -log10(pvalues), adjPValue, -log10(adjPValue), zscores, abs(zscores), foldchanges(:), log2(foldchanges(:))], ...
                                     {'MWXXP-Value', '-Log10[P-Value]', 'Adj-P-Value', '-Log10[Adj-P-Value]', 'Z-Score', 'Abs[Z-Score]', 'FoldChange', 'Log2[FoldChange]'}, ...
                                     dataSet.getColumnNames() ...
                                     );
-                            end
                         else
 %                             error('Not yet avalable')
 %                             [pvalues,h,stats] = ranksum(groupData1', groupData2');

@@ -59,28 +59,28 @@ classdef DiffProcess < biotracs.core.mvc.model.Process
             
             result = this.getOutputPortData('Result');
             LoQ = min(dataSet.data(dataSet.data(:) > 0)) ./ 10;
-
+            
             patterns = this.config.getParamValue('GroupPatterns');
             rowGrpStrategy = dataSet.createRowGroupStrategy(patterns);
             grpLabels = rowGrpStrategy.getGroupLabels();
             nbGroups = length(grpLabels);
-
+            
             statTable = biotracs.core.mvc.model.ResourceSet();
             diffTable = biotracs.core.mvc.model.ResourceSet();
             cpt = 0;
             
             %ceate groups of data
-            grpsToCompare = this.config.getParamValue('GroupsToCompare');           
+            grpsToCompare = this.config.getParamValue('GroupsToCompare');
             for g=1:nbGroups
-                sliceNames = rowGrpStrategy.getSliceNamesOfGroup(grpLabels{g}); 
-          
+                sliceNames = rowGrpStrategy.getSliceNamesOfGroup(grpLabels{g});
+                
                 if ~isempty(grpsToCompare)
                     [ ~, sliceIdx ] = ismember(grpsToCompare, sliceNames);
                 else
                     nbSlices = length(sliceNames);
                     sliceIdx  = 1:nbSlices;
                 end
-
+                
                 sliceIdx = sliceIdx(sliceIdx ~= 0);
                 
                 for i=1:length(sliceIdx)
@@ -91,7 +91,7 @@ classdef DiffProcess < biotracs.core.mvc.model.Process
                         grpName2 = sliceNames{sliceIdx(j)};
                         groupData2 = dataSet.getDataByRowName( ['(^',grpName2,'$)|(_',grpName2,'_)|(^',grpName2,'_)|(_',grpName2,'$)'] );
                         if isempty(groupData2), continue; end
-                    
+                        
                         % fill zero values in groupData1
                         negIdx = groupData1 <= 0;
                         nbNeg = sum(negIdx(:));
@@ -105,76 +105,80 @@ classdef DiffProcess < biotracs.core.mvc.model.Process
                         negIdx = groupData2 <= 0;
                         nbNeg = sum(negIdx(:));
                         if nbNeg > 0 && ~this.config.getParamValue('NegativeValuesImputation')
-                            %error('Cannot compute fold changes because of negative values in data. Set parameter NegativeValuesImputation to true') 
+                            %error('Cannot compute fold changes because of negative values in data. Set parameter NegativeValuesImputation to true')
                         else
                             groupData2( negIdx ) = LoQ * rand(1,nbNeg);
                         end
-                        
+                        % Normality Test
+                        s = size(groupData1);
+                        nrow = s(1);
+                        ncol = s(2);
+                        hG1 = [];
+                        hG2 = [];
+                        for f=1:ncol
+                            [Hg1 ] = swtest(groupData1(1:nrow,f));
+                            hG1 = [hG1, Hg1];
+                            [Hg2 ] = swtest(groupData2(1:nrow,f));
+                            hG2 = [hG2, Hg2];
+                        end
+                 
+                        warning('The group1 have a %g%% of features which does not follow a normal distribution', sum(hG1>0)/length(hG1) )
+                        warning('The group2 have a %g%% of features which does not follow a normal distribution', sum(hG2>0)/length(hG2) )
+
                         if strcmp(this.config.getParamValue('Method'), 'ttest')
-                            s = size(groupData1);
-                            nrow = s(1);
-                            ncol = s(2);
-                            hG1 = [];
-                            hG2 = [];
-                            for f=1:ncol
-                                [Hg1 ] = swtest(groupData1(1:nrow,f));
-                                hG1 = [hG1, Hg1];
-                                [Hg2 ] = swtest(groupData2(1:nrow,f));
-                                hG2 = [hG2, Hg2];
+                        
+                            
+                            [pvalues,zscores] = mattest(groupData1', groupData2');
+                            foldchanges = mean(groupData1) ./ mean(groupData2);
+                            
+                            if any(foldchanges <= 0) || any(isnan(foldchanges)) || any(isinf(foldchanges))
+                                warning('Some fold changes are negative or infinite numbers. You probably need to scale your data to have non-zero positive values or set parameter NegativeValuesImputation to true for impute negative values')
                             end
-                         
-                            if sum(hG1)==0 && sum(hG2)==0 
-                                [pvalues,zscores] = mattest(groupData1', groupData2');
-                                foldchanges = mean(groupData1) ./ mean(groupData2);
-                                
-                                if any(foldchanges <= 0) || any(isnan(foldchanges)) || any(isinf(foldchanges))
-                                    warning('Some fold changes are negative or infinite numbers. You probably need to scale your data to have non-zero positive values or set parameter NegativeValuesImputation to true for impute negative values')
-                                end
-                                
-                                %adjust p-value
-                                q = this.config.getParamValue('PValueThreshold');
-                                [~, ~, ~, adjPValue] = fdrbh.fdrbh(pvalues,q,'dep');
-                                
-                                diffMatrix = biotracs.data.model.DataMatrix(...
-                                    [pvalues, -log10(pvalues), adjPValue, -log10(adjPValue), zscores, abs(zscores), foldchanges(:), log2(foldchanges(:))], ...
-                                    {'TTestP-Value', '-Log10[P-Value]', 'Adj-P-Value', '-Log10[Adj-P-Value]', 'Z-Score', 'Abs[Z-Score]', 'FoldChange', 'Log2[FoldChange]'}, ...
-                                    dataSet.getColumnNames() ...
-                                    );
-                            else
-                                pvalues = [];
-                                zscores = [];
-                                for k=1:ncol
-                                    [pval,~, z] = ranksum(groupData1(1:nrow,k), groupData2(1:nrow,k));
-                                    pvalues=[pvalues; pval];
-                                    zscores= [zscores;z.ranksum];
-                                end
-                                
-                                foldchanges = mean(groupData1) ./ mean(groupData2);
-                                
-                                if any(foldchanges <= 0) || any(isnan(foldchanges)) || any(isinf(foldchanges))
-                                    warning('Some fold changes are negative or infinite numbers. You probably need to scale your data to have non-zero positive values or set parameter NegativeValuesImputation to true for impute negative values')
-                                end
-                                
-                                %adjust p-value
-                                q = this.config.getParamValue('PValueThreshold');
-                                [~, ~, ~, adjPValue] = fdrbh.fdrbh(pvalues,q,'dep');
-                              
-                                diffMatrix = biotracs.data.model.DataMatrix(...
-                                    [pvalues, -log10(pvalues), adjPValue, -log10(adjPValue), zscores, abs(zscores), foldchanges(:), log2(foldchanges(:))], ...
-                                    {'MWXXP-Value', '-Log10[P-Value]', 'Adj-P-Value', '-Log10[Adj-P-Value]', 'Z-Score', 'Abs[Z-Score]', 'FoldChange', 'Log2[FoldChange]'}, ...
-                                    dataSet.getColumnNames() ...
-                                    );
+                            
+                            %adjust p-value
+                            q = this.config.getParamValue('PValueThreshold');
+                            [~, ~, ~, adjPValue] = fdrbh.fdrbh(pvalues,q,'dep');
+                            
+                            diffMatrix = biotracs.data.model.DataMatrix(...
+                                [pvalues, -log10(pvalues), adjPValue, -log10(adjPValue), zscores, abs(zscores), foldchanges(:), log2(foldchanges(:))], ...
+                                {'TTestP-Value', '-Log10[P-Value]', 'Adj-P-Value', '-Log10[Adj-P-Value]', 'Z-Score', 'Abs[Z-Score]', 'FoldChange', 'Log2[FoldChange]'}, ...
+                                dataSet.getColumnNames() ...
+                                );
+                            
+                        elseif strcmp(this.config.getParamValue('Method'), 'MannWhitney')
+                            pvalues = [];
+                            zscores = [];
+                            for k=1:ncol
+                                [pval,~, z] = ranksum(groupData1(1:nrow,k), groupData2(1:nrow,k));
+                                pvalues=[pvalues; pval];
+                                zscores= [zscores;z.ranksum];
                             end
+                            
+                            foldchanges = mean(groupData1) ./ mean(groupData2);
+                            
+                            if any(foldchanges <= 0) || any(isnan(foldchanges)) || any(isinf(foldchanges))
+                                warning('Some fold changes are negative or infinite numbers. You probably need to scale your data to have non-zero positive values or set parameter NegativeValuesImputation to true for impute negative values')
+                            end
+                            
+                            %adjust p-value
+                            q = this.config.getParamValue('PValueThreshold');
+                            [~, ~, ~, adjPValue] = fdrbh.fdrbh(pvalues,q,'dep');
+                            
+                            diffMatrix = biotracs.data.model.DataMatrix(...
+                                [pvalues, -log10(pvalues), adjPValue, -log10(adjPValue), zscores, abs(zscores), foldchanges(:), log2(foldchanges(:))], ...
+                                {'MWXXP-Value', '-Log10[P-Value]', 'Adj-P-Value', '-Log10[Adj-P-Value]', 'Z-Score', 'Abs[Z-Score]', 'FoldChange', 'Log2[FoldChange]'}, ...
+                                dataSet.getColumnNames() ...
+                                );
                         else
-%                             error('Not yet avalable')
-%                             [pvalues,h,stats] = ranksum(groupData1', groupData2');
-%                             foldchanges = mean(groupData1) ./ mean(groupData2);
-%                             foldchangesQ2 = median(groupData1) ./ median(groupData2);
-%                             diffMatrix = biotracs.data.model.DataMatrix(...
-%                                 [pvalues, -log10(pvalues), zscores, abs(zscores), foldchanges(:), log2(foldchanges(:)), foldchangesQ2(:), log2(foldchangesQ2(:))], ...
-%                                 {'P-Value', '-Log10[P-Value]', 'Z-Score', 'Abs[Z-Score]', 'FoldChange', 'Log2[FoldChange]', 'FoldChangeQ2', 'Log2[FoldChangeQ2]'}, ...
-%                                 dataSet.getColumnNames() ...
-%                                 );
+                            % error('Not yet avalable')
+                            % [pvalues,h,stats] = ranksum(groupData1', groupData2');
+                            % foldchanges = mean(groupData1) ./ mean(groupData2);
+                            % foldchangesQ2 = median(groupData1) ./ median(groupData2);
+                            % diffMatrix = biotracs.data.model.DataMatrix(...
+                            % [pvalues, -log10(pvalues), zscores, abs(zscores), foldchanges(:), log2(foldchanges(:)), foldchangesQ2(:), log2(foldchangesQ2(:))], ...
+                            % {'P-Value', '-Log10[P-Value]', 'Z-Score', 'Abs[Z-Score]', 'FoldChange', 'Log2[FoldChange]', 'FoldChangeQ2', 'Log2[FoldChangeQ2]'}, ...
+                            % dataSet.getColumnNames() ...
+                            % );
                         end
                         
                         %mavolcanoplot(groupData1', groupData2', pvalues, 'Labels', dataSet.getColumnNames());
@@ -199,13 +203,13 @@ classdef DiffProcess < biotracs.core.mvc.model.Process
                 end
                 
             end
-
+            
             diffTable.setLabel('DiffTable')...
                 .setDescription('Differential analysis results');
-
+            
             statTable.setLabel('StatisticsTable')...
                 .setDescription('Group statistics');
-
+            
             %collect results
             result.set('DiffTable', diffTable);
             result.set('StatTable', statTable);
@@ -214,7 +218,7 @@ classdef DiffProcess < biotracs.core.mvc.model.Process
             filteredDiffTable = result.getSignificantDiffTable( ...
                 'PValueThreshold', this.config.getParamValue('PValueThreshold'), ...
                 'FoldChangeThreshold', this.config.getParamValue('FoldChangeThreshold') ...
-            );
+                );
             filteredDiffTable.setLabel('SignificantDiffTable');
             result.set('SignificantDiffTable', filteredDiffTable);
             
