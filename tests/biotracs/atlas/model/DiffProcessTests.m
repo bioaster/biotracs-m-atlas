@@ -6,7 +6,7 @@ classdef DiffProcessTests < matlab.unittest.TestCase
     
     methods (Test)
         
-        function testDifferentialAnalysis(testCase)
+        function testDifferentialAnalysisMWXX(testCase)
             s1 = RandStream.create('mrg32k3a','Seed', 42);
             s0 = RandStream.setGlobalStream(s1);
             
@@ -66,6 +66,10 @@ classdef DiffProcessTests < matlab.unittest.TestCase
             %result.view('VolcanoPlot', 'LabelFormat', 'none');
             
             RandStream.setGlobalStream(s0);
+        end
+        
+         function testDifferentialAnalysisTtest(testCase)
+           
         end
     end
     
