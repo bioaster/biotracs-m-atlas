@@ -12,7 +12,7 @@ classdef PCAPredictorResult < biotracs.atlas.model.BaseDecompPredictorResult
 	 end
 	 
 	 properties(SetAccess = protected)
-BaseDecomp	 end
+	 end
 	 
 	 events
 	 end
