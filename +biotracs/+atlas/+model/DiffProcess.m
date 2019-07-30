@@ -110,20 +110,23 @@ classdef DiffProcess < biotracs.core.mvc.model.Process
                             groupData2( negIdx ) = LoQ * rand(1,nbNeg);
                         end
                         % Normality Test
-                        s = size(groupData1);
-                        nrow = s(1);
-                        ncol = s(2);
+                  
+                        sG1 = size(groupData1);
+                        sG2 = size(groupData2);
+                       
                         hG1 = [];
                         hG2 = [];
-                        for f=1:ncol
-                            [Hg1 ] = swtest(groupData1(1:nrow,f));
+                        for f=1:sG1(2)
+                            [Hg1 ] = swtest(groupData1(1:sG1(1),f));
                             hG1 = [hG1, Hg1];
-                            [Hg2 ] = swtest(groupData2(1:nrow,f));
+                        end
+                       for f=1:sG2(2)     
+                            [Hg2 ] = swtest(groupData2(1:sG2(1),f));
                             hG2 = [hG2, Hg2];
                         end
-                 
-                        warning('The group1 have a %g%% of features which does not follow a normal distribution', sum(hG1>0)/length(hG1) )
-                        warning('The group2 have a %g%% of features which does not follow a normal distribution', sum(hG2>0)/length(hG2) )
+               %check with adama
+                        warning('\r The group1 have a %g features on %g of total features which does not follow a normal distribution, %g percent \r',sum(hG1>0), length(hG1), sum(hG1>0)/length(hG1) )
+                        warning('\r The group2 have a %g features on %g of total features which does not follow a normal distribution, %g percent \r', sum(hG2>0), length(hG2), sum(hG2>0)/length(hG2) )
 
                         if strcmp(this.config.getParamValue('Method'), 'ttest')
                         
@@ -141,15 +144,15 @@ classdef DiffProcess < biotracs.core.mvc.model.Process
                             
                             diffMatrix = biotracs.data.model.DataMatrix(...
                                 [pvalues, -log10(pvalues), adjPValue, -log10(adjPValue), zscores, abs(zscores), foldchanges(:), log2(foldchanges(:))], ...
-                                {'TTestP-Value', '-Log10[P-Value]', 'Adj-P-Value', '-Log10[Adj-P-Value]', 'Z-Score', 'Abs[Z-Score]', 'FoldChange', 'Log2[FoldChange]'}, ...
+                                {'P-Value', '-Log10[P-Value]', 'Adj-P-Value', '-Log10[Adj-P-Value]', 'Z-Score', 'Abs[Z-Score]', 'FoldChange', 'Log2[FoldChange]'}, ...
                                 dataSet.getColumnNames() ...
                                 );
                             
                         elseif strcmp(this.config.getParamValue('Method'), 'MannWhitney')
                             pvalues = [];
                             zscores = [];
-                            for k=1:ncol
-                                [pval,~, z] = ranksum(groupData1(1:nrow,k), groupData2(1:nrow,k));
+                            for k=1:sG1(2)
+                                [pval,~, z] = ranksum(groupData1(1:sG1(1),k), groupData2(1:sG2(1),k));
                                 pvalues=[pvalues; pval];
                                 zscores= [zscores;z.ranksum];
                             end
