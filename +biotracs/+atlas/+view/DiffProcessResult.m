@@ -51,7 +51,6 @@ classdef DiffProcessResult < biotracs.data.view.DataObject
                 pvalThreshold = -log10(p.Results.PValueThreshold);
                 fcThreshold = log2(p.Results.FoldChangeThreshold);
 
-                
                 h.handles{i} = figure;
                 h.names{i} = diffTable.elementNames{i};
                 
@@ -81,6 +80,9 @@ classdef DiffProcessResult < biotracs.data.view.DataObject
                 
                 %threshold
                 xLim = xlim();
+                maxAbsXLim = max(abs(xLim));
+                xlim([-maxAbsXLim, maxAbsXLim]);
+                
                 yLim = ylim();
                 plot(xLim, [pvalThreshold, pvalThreshold], '--r');
                 if fcThreshold ~= 0
