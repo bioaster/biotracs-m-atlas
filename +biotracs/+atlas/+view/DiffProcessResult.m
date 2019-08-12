@@ -82,9 +82,10 @@ classdef DiffProcessResult < biotracs.data.view.DataObject
                 xLim = xlim();
                 maxAbsXLim = max(abs(xLim));
                 xlim([-maxAbsXLim, maxAbsXLim]);
+                xLim = xlim();
+                plot(xLim, [pvalThreshold, pvalThreshold], '--r');
                 
                 yLim = ylim();
-                plot(xLim, [pvalThreshold, pvalThreshold], '--r');
                 if fcThreshold ~= 0
                     plot([fcThreshold, fcThreshold], yLim, '--r')
                     plot([-fcThreshold, -fcThreshold], yLim, '--r')
