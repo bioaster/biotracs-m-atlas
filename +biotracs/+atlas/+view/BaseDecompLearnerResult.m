@@ -257,7 +257,7 @@ classdef BaseDecompLearnerResult < biotracs.atlas.view.BaseLearnerResult
         function h = doViewScorePlot( this, varargin )
             p = inputParser();
             p.addParameter('NbComponents',[],@isnumeric);
-            p.addParameter('NbDimensions',2,@isnumeric);
+            p.addParameter('NbDimensions',3,@isnumeric);
             p.addParameter('LabelFormat','long',@(x)(ischar(x) || iscell(x)));
             p.addParameter('GroupList', {}, @iscell);
             p.addParameter('GroupColors', {}, @iscell);
