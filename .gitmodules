@@ -1,0 +1,6 @@
+[submodule "biotracs-m-atlas-externs"]
+	path = biotracs-m-atlas-externs
+	url = https://gitlab.in2p3.fr/BA-OMICS/Dev/biotracs-m-atlas-externs
+[submodule "externs/biotracs-m-atlas-externs"]
+	path = externs/biotracs-m-atlas-externs
+	url = https://gitlab.in2p3.fr/BA-OMICS/Dev/biotracs-m-atlas-externs

@@ -5,7 +5,7 @@
 		"biotracs-m-spectra"
 		],
 	"variables" : {
-		"VennDiagramFilePath": "%BIOTRACS_M_ATLAS_DIR%-externs/VennDiagram/venn.R",
-		"GroupedBoxplotsFilePath": "%BIOTRACS_M_ATLAS_DIR%-externs/GroupedBoxplots/venn.R"
+		"VennDiagramFilePath": "%BIOTRACS_M_ATLAS_DIR%/externs/biotracs-m-atlas-externs/VennDiagram/venn.R",
+		"GroupedBoxplotsFilePath": "%BIOTRACS_M_ATLAS_DIR%/externs/biotracs-m-atlas-externs/GroupedBoxplots/venn.R"
 	}
 }
