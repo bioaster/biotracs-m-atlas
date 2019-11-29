@@ -50,7 +50,10 @@ function autoload( varargin )
             end
         end
     end
-
+    
+    % Reset env 
+    % biotracs.core.env.Env.reset();
+    
     % Set environment variables
     biotracs.core.env.Env.depPaths(depPaths);
     
@@ -62,7 +65,7 @@ function autoload( varargin )
     end
 
     biotracs.core.env.Env.vars( depVars );
-
+    
     depNames = cell(size(depPaths));
     tokens = cell(size(depPaths));
     for i=1:length(depPaths)
@@ -74,7 +77,7 @@ function autoload( varargin )
     end
     biotracs.core.env.Env.depNames(depNames);
     biotracs.core.env.Env.depPathTokens(tokens);
-    
+        
     try
         if ischar(p.Results.WorkingDirectory) && ~strcmp( p.Results.WorkingDirectory, '' )
             workingDir = p.Results.WorkingDirectory;
@@ -86,7 +89,7 @@ function autoload( varargin )
         biotracs.core.env.Env.logDir( workingDir );
     catch err
         error('Biocode has not been loaded properly. Please check module directories.\n%s', err.message);
-    end    
+    end        
 end
 
 function [ oDepPaths, oDepVars ] = createDepPaths( iRootPaths, iDeps, iExceptions )
@@ -134,14 +137,14 @@ function [ oDepPaths, oDepVars ] = createDepPaths( iRootPaths, iDeps, iException
                     catch exception
                         error('BIOTRACS:Autoload:InvalidPkgFile', 'An error occured while loading the pkg file ''package.json''. Please check.\n %s', exception.message)
                     end
-                    
+                                        
                     if isfield(data, 'variables')
                         f = fieldnames(data.variables);
-                        for kk=1:length(data.variables)
+                        for kk=1:length(f)
                             oDepVars.(f{kk}) = data.variables.(f{kk});
                         end
                     end
-
+                    
                     if isfield(data, 'dependencies')
                         subDeps = {};
                         for k=1:length(data.dependencies)

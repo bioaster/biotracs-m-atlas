@@ -3,5 +3,9 @@
     "description"    : "Biotracs application provides libraries for data analysis using machine learning algorithms",
 	"dependencies"	: [
 		"biotracs-m-spectra"
-		]
+		],
+	"variables" : {
+		"VennDiagramFilePath": "%BIOTRACS_M_ATLAS_DIR%-externs/VennDiagram/venn.R",
+		"GroupedBoxplotsFilePath": "%BIOTRACS_M_ATLAS_DIR%-externs/GroupedBoxplots/venn.R"
+	}
 }

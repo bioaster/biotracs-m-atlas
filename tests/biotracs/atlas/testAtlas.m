@@ -17,8 +17,7 @@ function testAtlas( cleanAll )
             'biotracs-m-atlas', ...
         }, ...
         'Variables',  struct(...
-            'RExecutableFilePath', '%USER_DIR%/Documents/R/R-3.3.3/bin/Rscript.exe', ...
-            'VennDiagramFilePath', '%BIOTRACS_M_ATLAS_DIR%/externs/r/VennDiagram/venn.R' ...
+            'RExecutableFilePath', '%USER_DIR%/Documents/R/R-3.3.3/bin/Rscript.exe' ...
         ) ...
     );
 
@@ -27,10 +26,9 @@ function testAtlas( cleanAll )
     %Tests = TestSuite.fromFolder('./', 'IncludingSubfolders', true);
     
     %Tests = TestSuite.fromFile('./helper/HelperTests.m');
-    
     %Tests = TestSuite.fromFile('./model/AggregLearnerTests.m');
     %Tests = TestSuite.fromFile('./model/CovaLearnerTests.m');
-    Tests = TestSuite.fromFile('./model/DiffProcessTests.m');
+    %Tests = TestSuite.fromFile('./model/DiffProcessTests.m');
     %Tests = TestSuite.fromFile('./model/HCALearnerTests.m');
     %Tests = TestSuite.fromFile('./model/KmeansLearnerTests.m');
     %Tests = TestSuite.fromFile('./model/LarsenTests.m');
@@ -43,9 +41,7 @@ function testAtlas( cleanAll )
     %Tests = TestSuite.fromFile('./model/PoolLearnerTests.m');
     %Tests = TestSuite.fromFile('./model/PoolPredictorTests.m');
     %Tests = TestSuite.fromFile('./model/SldaTests.m');
-    
     %Tests = TestSuite.fromFile('./model/VennDiagramTests.m');
-    
     %Tests = TestSuite.fromFile('./model/GenericMLWorkflowTests.m');
     
     Tests.run;
