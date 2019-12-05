@@ -55,7 +55,7 @@ classdef BaseDecompPredictorResult < biotracs.atlas.view.BasePredictorResult
                 ax = p.Results.ScorePlotAxes;
                 h = ax.Parent;
                 figure(h);
-                set(h, 'currentaxes', ax);      %for axes with handle axs on figure f
+                set(h, 'currentaxes', ax);      %# for axes with handle axs on figure f
                 hold(ax, 'on');
             else
                 h = figure;
