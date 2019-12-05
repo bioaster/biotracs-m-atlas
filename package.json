@@ -5,11 +5,15 @@
 		"biotracs-m-spectra"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		],
 	"variables" : {
 		"VennDiagramFilePath": "%BIOTRACS_M_ATLAS_DIR%/externs/biotracs-m-atlas-externs/VennDiagram/venn.R",
 		"GroupedBoxplotsFilePath": "%BIOTRACS_M_ATLAS_DIR%/externs/biotracs-m-atlas-externs/GroupedBoxplots/venn.R"
 	}
+=======
+		]
+>>>>>>> parent of f92d84c... Remove extern R files from repo
 =======
 		]
 >>>>>>> parent of f92d84c... Remove extern R files from repo
