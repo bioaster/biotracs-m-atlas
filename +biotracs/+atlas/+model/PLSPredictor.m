@@ -26,6 +26,8 @@ classdef PLSPredictor < biotracs.atlas.model.BaseDecompPredictor
         
         % Constructor
         function this = PLSPredictor()
+            %#function biotracs.atlas.pls.model.PLSPredictorConfig biotracs.atlas.model.PLSLearnerResult
+            
             this@biotracs.atlas.model.BaseDecompPredictor();
             
             % enhance existing input specs

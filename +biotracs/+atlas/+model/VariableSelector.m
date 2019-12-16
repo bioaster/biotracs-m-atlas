@@ -22,6 +22,8 @@ classdef (Abstract)VariableSelector < biotracs.atlas.model.BaseLearner
         
         % Constructor
         function this = VariableSelector()
+            %#function biotracs.atlas.model.VariableSelectorConfig biotracs.atlas.model.VariableSelectorResult
+            
             this@biotracs.atlas.model.BaseLearner();
             
             this.addOutputSpecs({...

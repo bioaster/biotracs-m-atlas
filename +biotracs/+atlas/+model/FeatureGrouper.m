@@ -26,6 +26,8 @@ classdef FeatureGrouper < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = FeatureGrouper()
+            %#function biotracs.atlas.model.FeatureGrouperConfig biotracs.data.model.DataSet biotracs.spectra.data.model.IsoFeatureMap biotracs.data.model.DataMatrix biotracs.atlas.helper.FeatureGroupCalculator
+            
             this@biotracs.core.mvc.model.Process();
             this.configType = 'biotracs.core.mvc.model.ProcessConfig';
             this.setDescription('Algorithm for feature grouping');

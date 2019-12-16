@@ -25,6 +25,8 @@ classdef PCAPredictor < biotracs.atlas.model.BaseDecompPredictor
         
         % Constructor
         function this = PCAPredictor()
+            %#function biotracs.atlas.model.PCAPredictorConfig biotracs.atlas.model.PCALearnerResult biotracs.atlas.model.PCAPredictorResult
+            
             this@biotracs.atlas.model.BaseDecompPredictor();
             
             % enhance inputs specs

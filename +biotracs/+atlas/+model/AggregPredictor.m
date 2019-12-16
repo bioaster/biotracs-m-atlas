@@ -22,6 +22,8 @@ classdef AggregPredictor < biotracs.atlas.model.BasePredictor
         
         % Constructor
         function this = AggregPredictor()
+            %#function biotracs.atlas.model.AggregPredictorConfig biotracs.atlas.model.AggregPredictorResult biotracs.atlas.view.AggregPredictorResult
+            
             this@biotracs.atlas.model.BasePredictor();
             this.addOutputSpecs({...
                 struct(...

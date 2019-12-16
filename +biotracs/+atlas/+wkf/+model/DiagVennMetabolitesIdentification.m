@@ -25,8 +25,10 @@ classdef DiagVennMetabolitesIdentification < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = DiagVennMetabolitesIdentification()
+            %#function biotracs.data.model.DataFileSet biotracs.data.model.DataTable
+            
             this@biotracs.core.mvc.model.Process();
-            this.configType = 'biotracs.atlas.model.DiagVennMetabolitesIdentificationConfig';
+            %this.configType = 'biotracs.atlas.model.DiagVennMetabolitesIdentificationConfig';
             this.setDescription('Identify the metabolites of the output of the Venn Diagram');
           
             this.setInputSpecs({...

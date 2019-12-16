@@ -22,6 +22,8 @@ classdef SelectedModelMap < biotracs.core.mvc.model.ResourceSet
         
         % Constructor
         function this = SelectedModelMap( varargin )
+            %#function biotracs.atlas.model.SelectedVariableDataMatrix
+            
             this@biotracs.core.mvc.model.ResourceSet( varargin{:} )
             this.classNameOfElements = {'biotracs.atlas.model.SelectedVariableDataMatrix'};
         end

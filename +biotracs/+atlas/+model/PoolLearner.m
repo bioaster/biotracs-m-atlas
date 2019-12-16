@@ -22,6 +22,8 @@ classdef PoolLearner < biotracs.atlas.model.BaseLearner
         
         % Constructor
         function this = PoolLearner()
+            %#function biotracs.atlas.model.PoolLearnerConfig biotracs.atlas.model.SelectedModelMap biotracs.atlas.model.SelectedVariableDataMatrix biotracs.atlas.model.PoolLearnerResult
+            
             this@biotracs.atlas.model.BaseLearner();
             this.addInputSpecs({...
                 struct(...

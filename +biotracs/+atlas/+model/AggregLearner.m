@@ -22,6 +22,8 @@ classdef AggregLearner < biotracs.atlas.model.BaseLearner
         
         % Constructor
         function this = AggregLearner()
+            %#function biotracs.atlas.model.AggregLearnerConfig biotracs.atlas.model.AggregLearnerResult
+            
             this@biotracs.atlas.model.BaseLearner();           
             this.addOutputSpecs({...
                 struct(...

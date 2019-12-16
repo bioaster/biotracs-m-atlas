@@ -22,6 +22,8 @@ classdef PoolPredictor < biotracs.atlas.model.BasePredictor
         
         % Constructor
         function this = PoolPredictor()
+            %#function biotracs.atlas.model.PoolPredictorConfig biotracs.atlas.model.PoolPredictorResult
+            
             this@biotracs.atlas.model.BasePredictor();
             this.addOutputSpecs({...
                 struct(...

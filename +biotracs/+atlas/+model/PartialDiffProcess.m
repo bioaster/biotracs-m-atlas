@@ -25,6 +25,8 @@ classdef PartialDiffProcess < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = PartialDiffProcess()
+            %#function biotracs.atlas.model.PartialDiffProcessConfig biotracs.atlas.model.PCALearnerResult biotracs.atlas.model.PLSLearnerResult biotracs.atlas.model.PartialDiffProcessResult
+            
             this@biotracs.core.mvc.model.Process();
             this.setDescription('Partial differential analysis based on principal-components analysis');
             

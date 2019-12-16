@@ -25,6 +25,8 @@ classdef FileFormating < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = FileFormating()
+            %#function biotracs.atlas.model.FileFormatingConfig biotracs.data.model.DataFileSet
+            
             this@biotracs.core.mvc.model.Process();
             this.configType = 'biotracs.atlas.model.FileFormatingConfig';
             this.setDescription('Formating files for venn diagram analysis');

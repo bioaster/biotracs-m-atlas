@@ -25,6 +25,8 @@ classdef VennDiagram < biotracs.core.shell.model.Shell
         
         % Constructor
         function this = VennDiagram()
+            %#function biotracs.atlas.model.VennDiagramConfig biotracs.data.model.DataFileSet
+            
             this@biotracs.core.shell.model.Shell();
             
             % define input and output specs

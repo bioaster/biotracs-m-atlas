@@ -25,6 +25,7 @@ classdef (Abstract)BaseDecompPredictor < biotracs.atlas.model.BasePredictor
         
         % Constructor
         function this = BaseDecompPredictor()
+            %#function biotracs.atlas.model.BaseDecompPredictorConfig biotracs.atlas.model.BaseDecompPredictorResult
             this@biotracs.atlas.model.BasePredictor();
         end
         

@@ -25,6 +25,8 @@ classdef (Abstract) BasePredictor < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = BasePredictor()
+            %#function biotracs.atlas.model.BasePredictorConfig biotracs.atlas.model.BaseLearnerResult biotracs.data.model.DataSet
+            
             this@biotracs.core.mvc.model.Process();
             
             % enhance outputs specs

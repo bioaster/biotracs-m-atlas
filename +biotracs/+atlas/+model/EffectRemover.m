@@ -25,6 +25,8 @@ classdef EffectRemover < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = EffectRemover()
+            %#function biotracs.atlas.model.EffectRemoverConfig biotracs.data.model.DataSet biotracs.data.model.DataMatrix
+            
             this@biotracs.core.mvc.model.Process();
             
             % define input and output specs

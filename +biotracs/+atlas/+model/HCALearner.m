@@ -25,6 +25,8 @@ classdef HCALearner < biotracs.atlas.model.BaseClusterer
         
         % Constructor
         function this = HCALearner( )
+            %#function biotracs.atlas.model.HCALearnerConfig biotracs.atlas.model.HCALearnerResult
+            
             this@biotracs.atlas.model.BaseClusterer();
             
             % enhance outputs specs

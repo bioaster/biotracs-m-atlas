@@ -25,6 +25,8 @@ classdef PCALearner < biotracs.atlas.model.BaseDecompLearner
         
         % Constructor
         function this = PCALearner()
+            %#function biotracs.atlas.model.PCALearnerConfig biotracs.atlas.model.PCALearnerResult
+            
             this@biotracs.atlas.model.BaseDecompLearner();
             % enhance outputs specs
             this.addOutputSpecs({...

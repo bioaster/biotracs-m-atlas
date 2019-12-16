@@ -22,9 +22,10 @@ classdef AggregLearnerResult < biotracs.atlas.model.BaseLearnerResult
         
         % Constructor
         function this = AggregLearnerResult()
+            %#function biotracs.atlas.view.AggregLearnerResult
+            
             this@biotracs.atlas.model.BaseLearnerResult()
             this.set('IsoFeatureMap',biotracs.spectra.data.model.IsoFeatureMap.empty());
-            %this.set('AdjacencyMatrix',biotracs.spectra.data.model.DataMatrix.empty());
             this.bindView(biotracs.atlas.view.AggregLearnerResult());
         end
 

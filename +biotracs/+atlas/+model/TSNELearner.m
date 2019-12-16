@@ -25,6 +25,8 @@ classdef TSNELearner < biotracs.atlas.model.BaseLearner
         
         % Constructor
         function this = TSNELearner()
+            %#function biotracs.atlas.model.TSNELearnerConfig biotracs.atlas.model.TSNELearnerResult
+            
             this@biotracs.atlas.model.BaseLearner();
             % enhance outputs specs
             this.addOutputSpecs({...

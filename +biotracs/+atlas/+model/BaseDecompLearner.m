@@ -25,6 +25,8 @@ classdef (Abstract)BaseDecompLearner < biotracs.atlas.model.BaseLearner
         
         % Constructor
         function this = BaseDecompLearner()
+            %#function biotracs.atlas.model.BaseDecompLearnerConfig biotracs.atlas.model.BaseDecompLearnerResult
+            
             this@biotracs.atlas.model.BaseLearner();
         end
         

@@ -22,6 +22,8 @@ classdef ModelSelector < biotracs.atlas.model.BaseLearner
         
         % Constructor
         function this = ModelSelector()
+            %#function biotracs.atlas.model.ModelSelectorConfig biotracs.atlas.model.ModelSelectorResult
+            
             this@biotracs.atlas.model.BaseLearner();
             % define input and output specs
             this.addOutputSpecs({...

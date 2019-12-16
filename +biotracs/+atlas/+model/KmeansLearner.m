@@ -25,6 +25,8 @@ classdef KmeansLearner < biotracs.atlas.model.BaseClusterer
         
         % Constructor
         function this = KmeansLearner()
+            %#function biotracs.atlas.model.KmeansLearnerConfig biotracs.atlas.model.KmeansLearnerResult
+            
             this@biotracs.atlas.model.BaseClusterer();
             
             % enhance outputs specs

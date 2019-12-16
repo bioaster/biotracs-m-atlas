@@ -26,6 +26,8 @@ classdef (Abstract) BaseClustererResult < biotracs.atlas.model.BaseLearnerResult
         
         % Constructor
         function this = BaseClustererResult()
+            %#function biotracs.atlas.view.BaseClustererResult
+            
             this@biotracs.atlas.model.BaseLearnerResult();
             this.classNameOfElements = {'biotracs.core.mvc.model.Resource'};
         end

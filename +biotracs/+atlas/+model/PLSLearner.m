@@ -26,6 +26,8 @@ classdef PLSLearner < biotracs.atlas.model.BaseDecompLearner
         
         % Constructor
         function this = PLSLearner()
+            %#function biotracs.atlas.pls.model.PLSLearnerConfig biotracs.atlas.model.PLSLearnerResult
+            
             this@biotracs.atlas.model.BaseDecompLearner();
             this.setDescription('Partial least square (PLS) process');
             

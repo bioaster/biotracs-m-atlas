@@ -25,6 +25,8 @@ classdef (Abstract)BaseDecompLearnerResult < biotracs.atlas.model.BaseLearnerRes
         
         % Constructor
         function this = BaseDecompLearnerResult( varargin )
+            %#function biotracs.atlas.view.BaseDecompLearnerResult
+            
             this@biotracs.atlas.model.BaseLearnerResult();
             this.set('XLoadings', biotracs.data.model.DataMatrix.empty());
             this.set('XScores', biotracs.data.model.DataMatrix.empty());

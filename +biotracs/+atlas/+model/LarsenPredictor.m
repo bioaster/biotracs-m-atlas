@@ -25,6 +25,8 @@ classdef LarsenPredictor < biotracs.atlas.model.BasePredictor
         
         % Constructor
         function this = LarsenPredictor()
+            %#function biotracs.atlas.model.LarsenPredictorConfig biotracs.atlas.model.LarsenLearnerResult
+            
             this@biotracs.atlas.model.BasePredictor();
             
             % enhance outputs specs

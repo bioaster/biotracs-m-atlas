@@ -25,6 +25,7 @@ classdef (Abstract) BaseClusterer < biotracs.atlas.model.BaseLearner
         
         % Constructor
         function this = BaseClusterer( )
+            %#function biotracs.atlas.model.BaseClustererConfig biotracs.atlas.model.BaseClustererResult
             this@biotracs.atlas.model.BaseLearner();
         end
     end

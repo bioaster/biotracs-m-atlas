@@ -25,6 +25,8 @@ classdef (Abstract) BaseLearner < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = BaseLearner()
+            %#function biotracs.atlas.model.BaseLearnerConfig biotracs.data.model.DataSet
+            
             this@biotracs.core.mvc.model.Process();
             
             % define input and output specs

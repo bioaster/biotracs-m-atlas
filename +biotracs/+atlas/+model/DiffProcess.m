@@ -25,6 +25,8 @@ classdef DiffProcess < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = DiffProcess()
+            %#function biotracs.atlas.model.DiffProcessConfig
+            
             this@biotracs.core.mvc.model.Process();
             this.setDescription('Differential analysis intrument');
             

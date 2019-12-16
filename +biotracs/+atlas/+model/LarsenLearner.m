@@ -26,6 +26,8 @@ classdef LarsenLearner < biotracs.atlas.model.VariableSelector
         
         % Constructor
         function this = LarsenLearner()
+            %#function biotracs.atlas.model.LarsenLearnerConfig biotracs.atlas.model.LarsenLearnerResult
+            
             this@biotracs.atlas.model.VariableSelector();
             
             % enhance outputs specs
