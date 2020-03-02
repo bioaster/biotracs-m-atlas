@@ -74,7 +74,9 @@ pcaResult.view(...
 
 BioTracs modules only rely on MATLAB software. 
 
-The other biotracs-modules that `biotracs-atlas` relies on are given in the file `packages.json`. Please recursively download these depdencies in the same directory where `biotracs-atlas` module is located. All these modules are provided on github.
+The other biotracs applications this application relies on are given in the file `packages.json`. Please recursively download these depdencies in the same directory where this module is located. All the necessary biotracs apps are provided on github.
+
+All external vendor software or code sources are provided on the `externs` folder of this module.
 
 # License
 
