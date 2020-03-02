@@ -79,9 +79,9 @@ pcaResult.view(...
 
 BioTracs modules only rely on MATLAB software. 
 
-The other biotracs applications this application relies on are given in the file `packages.json`. Please recursively download these depdencies in the same directory where this module is located. All the necessary biotracs apps are provided on github.
+The other biotracs applications this application relies on are given in the file `packages.json`. Please recursively download these dependencies in the same directory where this application is located. All the necessary biotracs apps are provided on github a https://github.com/bioaster.
 
-If necessary, all external vendor software or code sources are provided on the `externs` folder of this module.
+If necessary, all external vendor software or code sources are provided in the `externs` folder of this module.
 
 # License
 
