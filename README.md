@@ -72,7 +72,7 @@ pcaResult.view(...
 
 # Demos and publication
 
-* A demo of the `biotracs-atlas` applciation is provided on github  https://github.com/bioaster/biotracs-papers
+* A demo of the `biotracs-atlas` application is provided on github  https://github.com/bioaster/biotracs-papers
 * The publication of biotracs framework is on biorxiv (https://doi.org/10.1101/2020.02.16.951624)
 
 # Dependencies
